@@ -1,15 +1,23 @@
-// TODO: Define TaskStatsProps interface
+interface Task {
+  id: string;
+  title: string;
+  completed: boolean;
+}
 
-// TODO: Build the TaskStats component
-// - Calculate total, completed, and remaining counts
-// - Display them in a stats bar
+interface TaskStatsProps {
+  tasks: Task[];
+}
 
-export function TaskStats() {
+export function TaskStats({ tasks }: TaskStatsProps) {
+  const total = tasks.length;
+  const completed = tasks.filter((t) => t.completed).length;
+  const remaining = total - completed;
+
   return (
     <div className="stats">
-      <span>Total: 0</span>
-      <span>Completed: 0</span>
-      <span>Remaining: 0</span>
+      <span>Total: {total}</span>
+      <span>Completed: {completed}</span>
+      <span>Remaining: {remaining}</span>
     </div>
   );
 }

@@ -1,28 +1,51 @@
 "use client";
 
-// TODO: Import useState and useEffect from React
-// TODO: Import your components: TaskList, AddTaskForm, TaskStats
+import { useState, useEffect } from "react";
+import { TaskList } from "@/components/task-list";
+import { AddTaskForm } from "@/components/add-task-form";
+import { TaskStats } from "@/components/task-stats";
 
-// TODO: Define a Task interface: { id: string; title: string; completed: boolean }
+interface Task {
+  id: string;
+  title: string;
+  completed: boolean;
+}
 
 export default function Home() {
-  // TODO: Create a tasks state with useState<Task[]>([])
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  // TODO: Write an addTask function that adds a new task to the array
+  useEffect(() => {
+    const stored = localStorage.getItem("tasks");
+    if (stored) {
+      setTasks(JSON.parse(stored));
+    }
+  }, []);
 
-  // TODO: Write a toggleTask function that toggles a task's completed status
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
-  // TODO: Add a useEffect to save tasks to localStorage whenever tasks change
+  const addTask = (title: string) => {
+    const newTask: Task = {
+      id: crypto.randomUUID(),
+      title,
+      completed: false,
+    };
+    setTasks((prev) => [...prev, newTask]);
+  };
 
-  // TODO: Add a useEffect to load tasks from localStorage on mount
+  const toggleTask = (id: string) => {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)),
+    );
+  };
 
   return (
     <div>
       <h1>Task Manager</h1>
-      {/* TODO: Render TaskStats with tasks */}
-      {/* TODO: Render AddTaskForm with onAdd handler */}
-      {/* TODO: Render TaskList with tasks and onToggle handler */}
-      <p>Complete the TODOs in this file and in src/components/ to build the app.</p>
+      <TaskStats tasks={tasks} />
+      <AddTaskForm onAdd={addTask} />
+      <TaskList tasks={tasks} onToggle={toggleTask} />
     </div>
   );
 }
