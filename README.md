@@ -14,7 +14,7 @@
 ### Build a Task Manager App
 
 1. **Fork** this repository and **clone** your fork
-2. Run `npm install` and `npm run dev`
+2. Run `pnpm install` and `pnpm dev`
 3. Open `http://localhost:3000` and complete the component stubs
 
 #### Step 1: TaskCard Component (`src/components/task-card.tsx`)
@@ -51,7 +51,7 @@
 - [ ] Empty form submission is prevented
 - [ ] Task list persists in localStorage
 - [ ] All components use TypeScript interfaces for props
-- [ ] `npm run dev` runs without errors
+- [ ] `pnpm dev` runs without errors
 
 ## File Structure
 
@@ -78,7 +78,7 @@ codecamp-exercise-react/
 ## Commands
 
 ```bash
-npm install     # Install dependencies
-npm run dev     # Start dev server at http://localhost:3000
-npm run build   # Build for production
+pnpm install     # Install dependencies
+pnpm dev     # Start dev server at http://localhost:3000
+pnpm build   # Build for production
 ```
