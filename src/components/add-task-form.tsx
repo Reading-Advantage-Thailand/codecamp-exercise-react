@@ -8,10 +8,9 @@ interface AddTaskFormProps {
 
 export function AddTaskForm({ onAdd }: AddTaskFormProps) {
   const [title, setTitle] = useState("");
-  
+
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault(); // ป้องกันหน้าเว็บรีเฟรชเอง
-    
+    e.preventDefault(); // Prevent page refresh
     if (!title.trim()) return;
 
     onAdd(title.trim());

@@ -1,13 +1,8 @@
 "use client";
 
 import React from "react";
-import TaskCard from "./task-card";
-
-interface Task {
-  id: string;
-  title: string;
-  completed: boolean;
-}
+import { TaskCard } from "./task-card";
+import { Task } from "@/types/task"; // Import shared interface
 
 interface TaskListProps {
   tasks: Task[];
@@ -15,7 +10,6 @@ interface TaskListProps {
 }
 
 export function TaskList({ tasks, onToggleTask }: TaskListProps) {
-  
   if (tasks.length === 0) {
     return (
       <div className="text-center py-8 border border-dashed rounded-xl border-gray-300 bg-gray-50">
@@ -26,9 +20,6 @@ export function TaskList({ tasks, onToggleTask }: TaskListProps) {
 
   return (
     <div className="space-y-2">
-      {/* - Map over tasks and render a TaskCard for each 
-          - Use task.id as the key prop
-      */}
       {tasks.map((task) => (
         <TaskCard
           key={task.id} 

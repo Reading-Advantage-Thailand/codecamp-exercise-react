@@ -1,12 +1,7 @@
 "use client";
 
 import React from "react";
-
-interface Task {
-  id: string;
-  title: string;
-  completed: boolean;
-}
+import { Task } from "@/types/task"; // Import shared interface
 
 interface TaskStatsProps {
   tasks: Task[];

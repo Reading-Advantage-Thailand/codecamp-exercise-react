@@ -1,6 +1,5 @@
-"use client";
-
 import React from "react";
+import { Task } from "@/types/task"; // ดึงข้อมูลมาจากไฟล์กลาง
 
 interface TaskCardProps {
   title: string;
@@ -8,7 +7,7 @@ interface TaskCardProps {
   onToggle: () => void;
 }
 
-export default function TaskCard({ title, completed, onToggle }: TaskCardProps) {
+export function TaskCard({ title, completed, onToggle }: TaskCardProps) {
   const containerClass = completed 
     ? "task-card flex items-center gap-3 p-3 bg-gray-50 border-gray-200 border rounded-lg shadow-sm completed" 
     : "task-card flex items-center gap-3 p-3 bg-white border rounded-lg shadow-sm hover:shadow transition";

@@ -4,12 +4,7 @@ import { useState, useEffect } from "react";
 import { AddTaskForm } from "@/components/add-task-form";
 import { TaskList } from "@/components/task-list";
 import { TaskStats } from "@/components/task-stats";
-
-interface Task {
-  id: string;
-  title: string;
-  completed: boolean;
-}
+import { Task } from "@/types/task"; // Import shared interface
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
