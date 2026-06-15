@@ -1,11 +1,33 @@
-// TODO: Import TaskCard
-// TODO: Define TaskListProps interface
+"use client";
 
-// TODO: Build the TaskList component
-// - Map over tasks and render a TaskCard for each
-// - Use task.id as the key prop
-// - Show "No tasks yet" when the list is empty
+import React from "react";
+import { TaskCard } from "./task-card";
+import { Task } from "@/types/task"; // Import shared interface
 
-export function TaskList() {
-  return <div>TODO: Implement TaskList</div>;
+interface TaskListProps {
+  tasks: Task[];
+  onToggleTask: (id: string) => void;
+}
+
+export function TaskList({ tasks, onToggleTask }: TaskListProps) {
+  if (tasks.length === 0) {
+    return (
+      <div className="text-center py-8 border border-dashed rounded-xl border-gray-300 bg-gray-50">
+        <p className="text-gray-500 font-medium">🎉 No tasks yet</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      {tasks.map((task) => (
+        <TaskCard
+          key={task.id} 
+          title={task.title}
+          completed={task.completed}
+          onToggle={() => onToggleTask(task.id)}
+        />
+      ))}
+    </div>
+  );
 }
