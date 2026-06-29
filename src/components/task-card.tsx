@@ -1,13 +1,25 @@
-// TODO: Define TaskCardProps interface
-// - title: string
-// - completed: boolean
-// - onToggle: () => void
+"use client";
 
-// TODO: Build the TaskCard component
-// - Render a checkbox input and a span with the title
-// - Add "completed" class when the task is done
-// - Call onToggle when the checkbox changes
+// 1. Define TaskCardProps interface
+interface TaskCardProps {
+  title: string;
+  completed: boolean;
+  onToggle: () => void;
+}
 
-export function TaskCard() {
-  return <div className="task-card">TODO: Implement TaskCard</div>;
+// 2. Build the TaskCard component
+export function TaskCard({ title, completed, onToggle }: TaskCardProps) {
+  return (
+    // - Add "completed" class when the task is done
+    <div className={`task-card ${completed ? "completed" : ""}`}>
+      {/* - Render a checkbox input */}
+      <input 
+        type="checkbox" 
+        checked={completed}
+        onChange={onToggle} // - Call onToggle when the checkbox changes
+      />
+      {/* - Render a span with the title */}
+      <span>{title}</span>
+    </div>
+  );
 }

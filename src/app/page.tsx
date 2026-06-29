@@ -1,28 +1,58 @@
 "use client";
 
-// TODO: Import useState and useEffect from React
-// TODO: Import your components: TaskList, AddTaskForm, TaskStats
+import { useState, useEffect } from "react";
+import { AddTaskForm } from "@/components/add-task-form";
+import { TaskList } from "@/components/task-list";
+import { TaskStats } from "@/components/task-stats";
 
-// TODO: Define a Task interface: { id: string; title: string; completed: boolean }
+interface Task {
+  id: string | number;
+  title: string;
+  completed: boolean;
+}
 
 export default function Home() {
-  // TODO: Create a tasks state with useState<Task[]>([])
+  // Use lazy state initialization to load data from localStorage instantly,
+  // preventing empty state from overwriting saved data on initial render.
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    if (typeof window !== "undefined") {
+      const savedTasks = localStorage.getItem("tasks");
+      return savedTasks ? JSON.parse(savedTasks) : [];
+    }
+    return [];
+  });
 
-  // TODO: Write an addTask function that adds a new task to the array
+  // Persist tasks to localStorage whenever the tasks state changes (including empty arrays)
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
-  // TODO: Write a toggleTask function that toggles a task's completed status
+  const addTask = (title: string) => {
+    const newTask: Task = {
+      id: Date.now().toString(),
+      title: title,
+      completed: false,
+    };
+    setTasks([...tasks, newTask]);
+  };
 
-  // TODO: Add a useEffect to save tasks to localStorage whenever tasks change
-
-  // TODO: Add a useEffect to load tasks from localStorage on mount
+  const toggleTask = (id: string | number) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
 
   return (
-    <div>
+    <div className="p-6 max-w-md mx-auto space-y-6">
       <h1>Task Manager</h1>
-      {/* TODO: Render TaskStats with tasks */}
-      {/* TODO: Render AddTaskForm with onAdd handler */}
-      {/* TODO: Render TaskList with tasks and onToggle handler */}
-      <p>Complete the TODOs in this file and in src/components/ to build the app.</p>
+      
+      <TaskStats tasks={tasks} />
+      
+      <AddTaskForm onAdd={addTask} />
+      
+      <TaskList tasks={tasks} onToggleTask={toggleTask} />
     </div>
   );
 }
