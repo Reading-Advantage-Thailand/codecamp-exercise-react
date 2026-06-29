@@ -1,16 +1,39 @@
 "use client";
 
-// TODO: Import useState from React
-// TODO: Define AddTaskFormProps interface: { onAdd: (title: string) => void }
 
-// TODO: Build the AddTaskForm component
-// - Manage input value with useState
-// - Handle form onSubmit: prevent default, validate non-empty, call onAdd, clear input
+import { useState, FormEvent } from "react";
 
-export function AddTaskForm() {
+
+interface AddTaskFormProps {
+  onAdd: (title: string) => void;
+}
+
+export function AddTaskForm({ onAdd }: AddTaskFormProps) {
+
+  const [title, setTitle] = useState("");
+
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault(); 
+
+  
+    if (!title.trim()) return;
+
+   
+    onAdd(title);
+
+  
+    setTitle("");
+  };
+
   return (
-    <form>
-      <input type="text" placeholder="Add a new task..." />
+    <form onSubmit={handleSubmit}>
+      <input 
+        type="text" 
+        placeholder="Add a new task..." 
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
       <button type="submit">Add</button>
     </form>
   );
